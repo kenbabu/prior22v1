@@ -1,4 +1,11 @@
 # Generate ranks from similarity scores 
+from prior import lsprot_gohpo_universal
+from  loaddata import load_test_data_dict 
+from collections import OrderedDict
+from operator import itemgetter
+
+DictProtUniversalData = load_test_data_dict()
+
 def generate_rank(sorted_dict):
     ranks = {}
     cur_score = None
@@ -42,3 +49,9 @@ def subset_by_rank(d, rank):
         return subdict
     except Exception as e:
         print(e)
+
+def main():
+    pass
+
+if __name__ == '__main__':
+    main()

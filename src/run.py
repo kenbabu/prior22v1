@@ -11,6 +11,10 @@ import ontologyprocess as op
 import rank 
 
 
+from semantic import (
+    best_match_avg2
+)
+
 DictTopologyData = loaddata.load_topology_data()
 GOTopos = DictTopologyData['GOTopos']
 HPOTopos = DictTopologyData['HPOTopos']

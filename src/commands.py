@@ -33,4 +33,16 @@ def semantic_similarity(term1, term2, ontology='GO'):
     else:
         print(f'The specified ontology {ontology} is not valid!')
     print(f"Semantic similarity between {term1} and {term2} = {sim}")
+
+@cli.command(name='rank')
+@click.argument('proteins', nargs=-1)
+@click.argument('disease', nargs=1)
+def prior_rank(proteins, disease):
+    """Prioritize proteins"""
+    ls_prots =[prot for prot in proteins ]
+    return ls_prots
+
+
+
+
     

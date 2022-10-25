@@ -1,4 +1,8 @@
+from ast import Try
 import pickle
+from semantic import best_match_avg2
+
+
 
 def load_mapping_dicts():
     MappingDict ={}
@@ -50,3 +54,19 @@ def load_topology_data():
     DictTopologyData['HPOTopos']= HPOTopos
 
     return DictTopologyData
+
+def load_test_data_dict():
+    # c/Data/TestData
+    try:
+        with open('Data/TestData/DictProtUniversalData.pk', 'rb') as handle:
+            DictTestData = pickle.load(handle)
+        return DictTestData
+    except FileNotFoundError as fe:
+        return None
+
+def main():
+    TestData = load_test_data_dict()
+    print(f"TData: {TestData.keys()}")
+
+if __name__ == '__main__':
+    main()
