@@ -11,16 +11,6 @@ import ontologyprocess as op
 import rank 
 
 
-from semantic import (
-    best_match_avg2
-)
-
-DictTopologyData = loaddata.load_topology_data()
-GOTopos = DictTopologyData['GOTopos']
-HPOTopos = DictTopologyData['HPOTopos']
-
-GOParentsLevels = DictTopologyData['GOParentsLevels']
-HPOParentsLevels = DictTopologyData['HPOParentsLevels']
 
 
 # print(f"'GO:0120132', 'GO:0097190': {sim2}")
