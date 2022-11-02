@@ -64,6 +64,27 @@ def load_disgenet_to_uniprot_data_dict():
     except FileNotFoundError as fe:
         return None
 
+def load_diabetes_test_genes():
+    try:
+        with open('Data/TestData/DiabetesData/t2dgenes2016.txt', 'r') as handle:
+            ls_diabetes_genes = list()
+            for line in handle:
+                ls_diabetes_genes.append(line.rstrip())
+        return ls_diabetes_genes
+    except FileNotFoundError as fe:
+        return None
+
+def load_diabetes_proteins():
+    try:
+        with open('Data/TestData/DiabetesData/diabetes_prots_2016.txt', 'r') as handle:
+            ls_diabetes_prots = list()
+            for line in handle:
+                ls_diabetes_prots.append(line.rstrip())
+        return ls_diabetes_prots
+    except FileNotFoundError as fe:
+        return None
+# load_diabetes_proteins
+
 def load_test_data_dict():
     # c/Data/TestData
     try:
@@ -74,8 +95,7 @@ def load_test_data_dict():
         return None
 
 def main():
-    TestData = load_test_data_dict()
-    print(f"TData: {TestData.keys()}")
+  print('Loading data...')
 
 if __name__ == '__main__':
     main()

@@ -1,8 +1,13 @@
 # Generate ranks from similarity scores 
-from prior import lsprot_gohpo_universal
+from prior import (
+    lsprot_gohpo_universal,
+    go_similarity_score
+)
 from  loaddata import (
     load_test_data_dict,
-    load_disgenet_to_uniprot_data_dict
+    load_disgenet_to_uniprot_data_dict,
+    load_diabetes_test_genes,
+    load_diabetes_proteins
 ) 
 from collections import OrderedDict
 from operator import itemgetter
@@ -11,6 +16,8 @@ from utility import naive_score
 
 DictProtUniversalData = load_test_data_dict()
 DisgenetData =  load_disgenet_to_uniprot_data_dict()
+DIABETES_GENES_2016 = load_diabetes_test_genes()
+DIABETES_PROTEINS_2016 = load_diabetes_proteins()
 
 # del DictProtUniversalData['agg_func']
 
@@ -33,8 +40,9 @@ def generate_rank(sorted_dict):
 def rank_train_test(lstrain, lstest, tag=1):
     DictRanks = {}
     for prot in lstest:
-        sim = lsprot_gohpo_universal(lstrain, [prot], tag, **DictProtUniversalData)
-        DictRanks[prot] = sim
+        # sim = lsprot_gohpo_universal(lstrain, [prot], tag, **DictProtUniversalData)
+        go_sim = go_similarity_score(lstrain, [prot],  **DictProtUniversalData )
+        DictRanks[prot] = go_sim
     dict_ordered_sim = OrderedDict(
             sorted(DictRanks.items(), key=itemgetter(1), reverse=True))
     ranks = generate_rank(dict_ordered_sim)
@@ -72,11 +80,13 @@ def subset_by_rank(d, rank):
 def main():
     rank = rank_train_test(['KCNJ11', 'HNF4A' ], ['INS', 'GCK','TCF7L2', 'HHEX','IGF2BP2'])
 
+    rank_diabetes = rank_train_test(DIABETES_PROTEINS_2016[:4], DIABETES_PROTEINS_2016)
+
     rank_disease = rank_genes_disease( ['FOOBAR','INS', 'GCK','TCF7L2', 'HHEX','IGF2BP2', 'ACE', 'APOE', 'ANO4', 'MAPT', 'PLAU', 'MPO', 'something'], 'C0011854')
     diabetes_proteins = DisgenetData.get('C0011854')
     num_prots = len(diabetes_proteins)
     num_set_prots = len(set(diabetes_proteins))
-    print(f"Ranking diabetes genes: {rank_disease}")
+    print(f"Ranking diabetes proteins: {rank_diabetes}")
     print(f"Ranking disease genes: {rank}")
     # print(f"Diabetes proteins: {diabetes_proteins}\n{num_prots}\n{num_set_prots}")
 

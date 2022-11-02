@@ -64,4 +64,6 @@ def general_universal(term1, term2, dict_parents, dict_topologies, DictTermSim={
     
     DictTermSim[(term1, term2)] =  DictTermSim[(term2, term1)] = sim
     return sim
-    
+
+if __name__ == '__main__':
+    pass

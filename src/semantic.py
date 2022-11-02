@@ -1,3 +1,6 @@
+import numpy as np
+from ontologyprocess import general_universal
+
 def average(ls1, ls2, ont, dict_levels):
     av = [sim_universal(a, b, ont, dict_levels) for a in ls2 for b in ls1]
     sim = round(sum(av)/len(av),5)
