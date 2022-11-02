@@ -55,6 +55,15 @@ def load_topology_data():
 
     return DictTopologyData
 
+def load_disgenet_to_uniprot_data_dict():
+    # c/Data/TestData
+    try:
+        with open('Data/Disease/disgenet_to_uniprot.pk', 'rb') as handle:
+            DisgenetData = pickle.load(handle)
+        return DisgenetData
+    except FileNotFoundError as fe:
+        return None
+
 def load_test_data_dict():
     # c/Data/TestData
     try:

@@ -1,10 +1,18 @@
 # Generate ranks from similarity scores 
 from prior import lsprot_gohpo_universal
-from  loaddata import load_test_data_dict 
+from  loaddata import (
+    load_test_data_dict,
+    load_disgenet_to_uniprot_data_dict
+) 
 from collections import OrderedDict
 from operator import itemgetter
+from itertools import  chain
+from utility import naive_score
 
 DictProtUniversalData = load_test_data_dict()
+DisgenetData =  load_disgenet_to_uniprot_data_dict()
+
+# del DictProtUniversalData['agg_func']
 
 def generate_rank(sorted_dict):
     ranks = {}
@@ -31,8 +39,19 @@ def rank_train_test(lstrain, lstest, tag=1):
             sorted(DictRanks.items(), key=itemgetter(1), reverse=True))
     ranks = generate_rank(dict_ordered_sim)
     
+    print(DictRanks)
     del DictRanks
-    return ranks# go_pred = t2d2016_go
+    return ranks
+def rank_genes_disease(ls_test_prots, disease):
+    ls_disease_prots = DisgenetData.get(disease)
+    ranks = {}
+    if not ls_disease_prots:
+        return ranks
+    try:
+        ranks = rank_train_test(ls_disease_prots, ls_test_prots)
+        return ranks
+    except Exception:
+        print(f"Unknown error: {e}")
 def subset_by_rank(d, rank):
     try:
         subdict = {k:v for k, v in d.items() if int(v)<rank }
@@ -51,7 +70,15 @@ def subset_by_rank(d, rank):
         print(e)
 
 def main():
-    pass
+    rank = rank_train_test(['KCNJ11', 'HNF4A' ], ['INS', 'GCK','TCF7L2', 'HHEX','IGF2BP2'])
+
+    rank_disease = rank_genes_disease( ['FOOBAR','INS', 'GCK','TCF7L2', 'HHEX','IGF2BP2', 'ACE', 'APOE', 'ANO4', 'MAPT', 'PLAU', 'MPO', 'something'], 'C0011854')
+    diabetes_proteins = DisgenetData.get('C0011854')
+    num_prots = len(diabetes_proteins)
+    num_set_prots = len(set(diabetes_proteins))
+    print(f"Ranking diabetes genes: {rank_disease}")
+    print(f"Ranking disease genes: {rank}")
+    # print(f"Diabetes proteins: {diabetes_proteins}\n{num_prots}\n{num_set_prots}")
 
 if __name__ == '__main__':
     main()
