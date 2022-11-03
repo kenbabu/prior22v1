@@ -24,10 +24,10 @@ def main():
     """Run PrIOR """
     score = ut.naive_score(0.4,0.6)
     # sim = op.general_universal(['P14222'], ['Q96KN2'], **DictProtUniversalData)
-    sim = op.general_universal('GO:0003089', 'GO:0033377', GOParents, GOTopos)
+    # sim = op.general_universal('GO:0003089', 'GO:0033377', GOParents, GOTopos)
 
-    sim_go = prior.go_similarity_score(['P14222'], ['Q96KN2'], **DictProtUniversalData)
-    print(f'Score: {score}\nSemantic similarity {sim_go}')
+    # sim_go = prior.go_similarity_score(['P14222'], ['Q96KN2'], **DictProtUniversalData)
+    # print(f'Score: {score}\nSemantic similarity {sim_go}')
 
 
 

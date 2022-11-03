@@ -29,24 +29,44 @@ def go_similarity_score(ls_prot1, ls_prot2, **kwargs):
     ls_go_annots1 = list(set(chain(*filter(None, annots1 ))))
     ls_go_annots2 = list(set(chain(*filter(None, annots2 ))))
 
-    print(ls_go_annots1)
-
     go_sim_score = best_match_avg2(ls_go_annots1, ls_go_annots2,kwargs['go_parents'], kwargs['go_topologies'], kwargs['go_sub'])
-    # (l)
-        
-
-    # print(f"{ls_go_annots1}\n{ls_go_annots2}")
-    print(f"Similarity score: {go_sim_score}")
-    # print(f"Parents: {kwargs['go_sub']}")
     return go_sim_score
-#
+
+
+def hpo_similarity_score(ls_prot1, ls_prot2, **kwargs):
+    # same list
+    if ls_prot1 == ls_prot2: return 1.0
+
+    if (ls_prot1 == []) or (ls_prot2 == []): return 0.0
+    
+    hpo_sim_score = -10.0 
+    annots1 = (kwargs['hpo_annotations'].get(prot) for prot in ls_prot1)
+    annots2 = (kwargs['hpo_annotations'].get(prot) for prot in ls_prot2)
+
+    ls_go_annots1 = list(set(chain(*filter(None, annots1 ))))
+    ls_go_annots2 = list(set(chain(*filter(None, annots2 ))))
+
+    hpo_sim_score = best_match_avg2(ls_go_annots1, ls_go_annots2,kwargs['hpo_parents'], kwargs['hpo_topologies'], kwargs['hpo_sub'])
+    return hpo_sim_score
+# Combined similarity score
+def combined_similarity_score(ls_prot1, ls_prot2, **kwargs):
+    # same list
+    if ls_prot1 == ls_prot2: return 1.0
+
+    if (ls_prot1 == []) or (ls_prot2 == []): return 0.0
+    go_sim_score, hpo_sim_score, combined_sim_score = 0.0, 0.0, 0.0
+    go_sim_score = go_similarity_score(ls_prot1, ls_prot2, **kwargs)
+    hpo_sim_score = hpo_similarity_score(ls_prot1, ls_prot2, **kwargs)
+    combined_sim = naive_score(go_sim_score, hpo_sim_score)
+    return combined_sim
+
 
 def lsprot_gohpo_universal(ls1, ls2, tag, **kwargs):
     if ls1 == ls2:
         return 1.0
     if ls1 == [] or ls2 == []:
         return 0.0
-    print(f"ls1: {ls1}   ls2: {ls2}")
+    # print(f"ls1: {ls1}   ls2: {ls2}")
 #     GO
     go_sim_score, hpo_sim_score, combined_sim = 0.0, 0.0, 0.0
     if tag == 1:
@@ -102,6 +122,7 @@ def lsprot_gohpo_universal(ls1, ls2, tag, **kwargs):
 
 def main():
     sim = go_similarity_score(['P14222'], ['Q96KN2'], **DictProtUniversalData)   
+    
     print(f"GO Score: {sim}")
         
 if __name__ == '__main__':

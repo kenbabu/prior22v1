@@ -40,23 +40,23 @@ def generate_rank(sorted_dict):
 def rank_train_test(lstrain, lstest, tag=1):
     DictRanks = {}
     for prot in lstest:
-        # sim = lsprot_gohpo_universal(lstrain, [prot], tag, **DictProtUniversalData)
-        go_sim = go_similarity_score(lstrain, [prot],  **DictProtUniversalData )
-        DictRanks[prot] = go_sim
+        sim = lsprot_gohpo_universal(lstrain, [prot], tag, **DictProtUniversalData)
+        # go_sim = go_similarity_score(lstrain, [prot],  **DictProtUniversalData )
+        DictRanks[prot] = sim
     dict_ordered_sim = OrderedDict(
             sorted(DictRanks.items(), key=itemgetter(1), reverse=True))
     ranks = generate_rank(dict_ordered_sim)
     
-    print(DictRanks)
+    # print(DictRanks)
     del DictRanks
     return ranks
-def rank_genes_disease(ls_test_prots, disease):
+def rank_genes_disease(ls_test_prots, disease, tag):
     ls_disease_prots = DisgenetData.get(disease)
     ranks = {}
     if not ls_disease_prots:
         return ranks
     try:
-        ranks = rank_train_test(ls_disease_prots, ls_test_prots)
+        ranks = rank_train_test(ls_disease_prots, ls_test_prots, tag)
         return ranks
     except Exception:
         print(f"Unknown error: {e}")
@@ -76,18 +76,21 @@ def subset_by_rank(d, rank):
         return subdict
     except Exception as e:
         print(e)
+# ['FOOBAR','INS', 'GCK','TCF7L2', 'HHEX','IGF2BP2', 'ACE', 'APOE', 'ANO4', 'MAPT', 'PLAU', 'MPO']
 
 def main():
     rank = rank_train_test(['KCNJ11', 'HNF4A' ], ['INS', 'GCK','TCF7L2', 'HHEX','IGF2BP2'])
 
     rank_diabetes = rank_train_test(DIABETES_PROTEINS_2016[:4], DIABETES_PROTEINS_2016)
 
-    rank_disease = rank_genes_disease( ['FOOBAR','INS', 'GCK','TCF7L2', 'HHEX','IGF2BP2', 'ACE', 'APOE', 'ANO4', 'MAPT', 'PLAU', 'MPO', 'something'], 'C0011854')
+    rank_disease = rank_genes_disease(DIABETES_PROTEINS_2016 , 'C0011854')
     diabetes_proteins = DisgenetData.get('C0011854')
     num_prots = len(diabetes_proteins)
     num_set_prots = len(set(diabetes_proteins))
     print(f"Ranking diabetes proteins: {rank_diabetes}")
     print(f"Ranking disease genes: {rank}")
+
+    print(f"Ranking disease genes: {rank_disease}")
     # print(f"Diabetes proteins: {diabetes_proteins}\n{num_prots}\n{num_set_prots}")
 
 if __name__ == '__main__':
