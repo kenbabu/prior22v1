@@ -8,4 +8,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY .  /code/
 
-CMD ["python", "./run.py"] dest
+CMD ["python", "./run.py"] 
