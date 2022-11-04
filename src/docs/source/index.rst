@@ -1,5 +1,5 @@
 .. PrIOR documentation master file, created by
-   sphinx-quickstart on Fri Nov  4 10:10:24 2022.
+   sphinx-quickstart on Fri Nov  4 10:25:14 2022.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
