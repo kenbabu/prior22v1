@@ -5,9 +5,15 @@
 
 # Welcome to PrIOR's documentation!
 
+```{include} ../README.md
+```
+
 ```{toctree}
 :caption: 'Contents:'
 :maxdepth: 2
+```
+```{warning}
+This library is still under development
 ```
 
 # Indices and tables
