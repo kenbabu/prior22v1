@@ -5,16 +5,22 @@
 
 # Welcome to PrIOR's documentation!
 
-```{include} ../README.md
-```
-
-```{toctree}
-:caption: 'Contents:'
-:maxdepth: 2
-```
 ```{warning}
 This library is still under development
 ```
+
+![No image](../../Images/PrIOR_algorithm_summary.png  "PrIOR Prioritization")
+
+```{include} ../README.md
+```
+For further info, check out {doc}`usage`. Read installation instructions in {ref}`Installation`
+```{toctree}
+:caption: 'Contents:'
+:maxdepth: 2
+
+usage
+```
+
 
 # Indices and tables
 
