@@ -66,4 +66,5 @@ def general_universal(term1, term2, dict_parents, dict_topologies, DictTermSim={
     return sim
 
 if __name__ == '__main__':
+    general_universal('GO:0002357', )
     pass
