@@ -12,7 +12,10 @@ from  loaddata import (
 from collections import OrderedDict
 from operator import itemgetter
 from itertools import  chain
-from utility import naive_score
+from utility import (
+    naive_score, 
+    timer_func
+)
 
 DictProtUniversalData = load_test_data_dict()
 DisgenetData =  load_disgenet_to_uniprot_data_dict()
@@ -50,6 +53,7 @@ def rank_train_test(lstrain, lstest, tag=1):
     # print(DictRanks)
     del DictRanks
     return ranks
+@timer_func
 def rank_genes_disease(ls_test_prots, disease, tag):
     ls_disease_prots = DisgenetData.get(disease)
     ranks = {}
@@ -83,7 +87,7 @@ def main():
 
     rank_diabetes = rank_train_test(DIABETES_PROTEINS_2016[:4], DIABETES_PROTEINS_2016)
 
-    rank_disease = rank_genes_disease(DIABETES_PROTEINS_2016 , 'C0011854')
+    rank_disease = rank_genes_disease(DIABETES_PROTEINS_2016 , 'C0011854', 3)
     diabetes_proteins = DisgenetData.get('C0011854')
     num_prots = len(diabetes_proteins)
     num_set_prots = len(set(diabetes_proteins))

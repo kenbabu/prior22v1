@@ -89,7 +89,7 @@ def prioritize(target, source):
 @click.argument('disease', nargs=1)
 # @click.argument('proteins', nargs=-1)
 @click.option('-o', '--ontology', type=click.Choice(['GO', 'HPO', 'ALL'], case_sensitive=False))
-@click.option('-pf', '--proteinfile', type=click.Path(exists=True))
+@click.option('-pf', '--proteinfile', type=click.Path(exists=True), help='Path to the file that contains proteins that are to be ranked')
 @click.option('-rf', '--resultfile',type=click.Path(), default='Results/ResultFile.txt')
 def prioritize_proteins_disease(proteinfile, disease, ontology, resultfile):
     """Rank proteins against a disease"""

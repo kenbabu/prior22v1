@@ -16,7 +16,8 @@ release = '1.0'
 
 extensions = [
     "myst_parser",
-    "sphinx.ext.autosectionlabel"
+    "sphinx.ext.autosectionlabel",
+    "sphinx.ext.autodoc"
     
     ]
 

@@ -1,4 +1,17 @@
-from functools import reduce
+from functools import reduce, wraps
+import time
+
+# Decorator for timining functions
+def timer_func(myfunc):
+    @wraps(myfunc)
+    def wrapper(*args, **kwargs):
+        start = time.perf_counter()
+        result = myfunc(*args, **kwargs)
+        end = time.perf_counter()
+        run_time = end - start
+        print(f"Ran {myfunc.__name__!r} in {run_time:.2f} seconds")
+        return result
+    return wrapper
 
 
 def naive_score(*args):
