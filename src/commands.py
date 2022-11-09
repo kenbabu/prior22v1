@@ -43,11 +43,16 @@ def load_diabetes_test_genes():
     except FileNotFoundError as fe:
         return None
 
+DICT_ONTOLOGY = {'go':1, 'hpo':2, 'all':3}
+
+# ctx.obj = {
+#     'dict_ontology': DICT_ONTOLOGY
+# }
+
 
 @click.group()
 def cli():
     pass
-
 @cli.command(name='semsim')
 @click.argument('term1')
 @click.argument('term2')
@@ -65,6 +70,7 @@ def semantic_similarity(term1, term2, ontology='GO'):
     else:
         print(f'The specified ontology {ontology} is not valid!')
     print(f"Semantic similarity between {term1} and {term2} = {sim}")
+
 
 @cli.command(name='rank')
 @click.argument('proteins', nargs=-1)
@@ -86,20 +92,21 @@ def prioritize(target, source):
     # pass
 
 @cli.command(name='rankdisease')
-@click.argument('disease', nargs=1)
 # @click.argument('proteins', nargs=-1)
-@click.option('-o', '--ontology', type=click.Choice(['GO', 'HPO', 'ALL'], case_sensitive=False))
+@click.pass_context
+@click.option('-o', '--ontology', type=click.Choice(['GO', 'HPO', 'ALL'], case_sensitive=False), help="Ontology choice")
 @click.option('-pf', '--proteinfile', type=click.Path(exists=True), help='Path to the file that contains proteins that are to be ranked')
-@click.option('-rf', '--resultfile',type=click.Path(), default='Results/ResultFile.txt')
-def prioritize_proteins_disease(proteinfile, disease, ontology, resultfile):
+@click.option('-rf', '--resultfile',type=click.Path(), default='Results/ResultFile.txt', help="Path to output file")
+@click.argument('disease', nargs=1, metavar='DISEASE_ID')
+def prioritize_proteins_disease(ctx, proteinfile, disease, ontology, resultfile):
     """Rank proteins against a disease"""
     ls_source, ls_target =  ['KCNJ11', 'HNF4A' ], ['INS', 'GCK','TCF7L2', 'HHEX','IGF2BP2']
-    DictOntologyTag = {'go':1, 'hpo':2, 'all':3}
+    DICT_ONTOLOGY
     with open(proteinfile, 'r') as handle:
         ls_test_proteins = list()
         for line in handle:
             ls_test_proteins.append(line.rstrip())
-    ranks = rank_genes_disease(ls_test_proteins, disease, DictOntologyTag[ontology.lower()])
+    ranks = rank_genes_disease(ls_test_proteins, disease, DICT_ONTOLOGY[ontology.lower()])
     with click.progressbar(ranks.items()) as data:
         with open(resultfile, 'w') as handle:
             for key, val in data:

@@ -1,11 +1,17 @@
-FROM python:3.9
+FROM python:3.8-slim
 
-WORKDIR /code
+RUN useradd --create-home --shell /bin/bash app_user
 
-COPY ./requirements.txt /code/requirements.txt
+WORKDIR /home/app_user
+
+COPY requirements.txt ./
 
 RUN pip install --no-cache-dir -r requirements.txt 
 
-COPY .  /code/
+USER app_user
 
-CMD ["python", "./run.py"] 
+COPY . .
+
+CMD ["bash"] 
+
+# /home/user/2022/Develop/prior22v1/src/Dockerfile
