@@ -25,9 +25,7 @@ $ docker run -t priorv22 --rm
 $ docker run -it --name priorv22_app --rm priorv22
 
 ```
-Run docker in detatched mode i.e. you can exist the docker shell and still have docker running in the 
-background.
-    - docker run -dit --name priorv22_app --rm priorv22
+
 ### Get UMLS_CUI ID for a disease
 - Search this url (https://www.disgenet.org/search)[DisGeNET]
 
