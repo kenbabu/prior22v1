@@ -29,18 +29,24 @@ Run docker in detatched mode i.e. you can exist the docker shell and still have 
 background.
     - docker run -dit --name priorv22_app --rm priorv22
 ### Get UMLS_CUI ID for a disease
-- Search this url (https://www.disgenet.org/search)[DisGeNET]
+- Search  [DisGeNET](https://www.disgenet.org/search) for mapping between disease names and corresponding UMLS IDs
 
 ## Rank a list of proteins
 
-```console
+```
 (env) $ python run.py rankdisease -o all -pf <path/to/protein/file> UMLS_Disease_ID
 
 # Example to rank breast cancer proteins against alzheimer's disease
 
 (env) $ python run.py rankdisease -o go -pf Data/TestData/BreastCancer/brca_proteins.txt C0001080
+
 ```
-#### Description of inputs
+
+## Description of inputs
+
+**-o or --ontology** \n 
+&nbsp;&nbsp; Ontology upon which the ranking is based.
+
 **-o or --ontology**   Ontology upon which the ranking is based.
 
 *-pf or --protein_file*   A file containing UniProt protein IDs for proteins to be ranked.

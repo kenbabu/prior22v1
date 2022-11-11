@@ -60,30 +60,36 @@
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker run -it --name priorv22_app --rm priorv22
 </pre></div>
 </div>
+<p>Run docker in detatched mode i.e. you can exist the docker shell and still have docker running in the
+background.
+- docker run -dit –name priorv22_app –rm priorv22</p>
 <section id="get-umls-cui-id-for-a-disease">
 <h3>Get UMLS_CUI ID for a disease<a class="headerlink" href="#get-umls-cui-id-for-a-disease" title="Permalink to this heading">¶</a></h3>
 <ul class="simple">
-<li><p>Search this url (https://www.disgenet.org/search)[DisGeNET]</p></li>
+<li><p>Search  <a class="reference external" href="https://www.disgenet.org/search">DisGeNET</a> for mapping between disease names and corresponding UMLS IDs</p></li>
 </ul>
 </section>
 </section>
 <section id="rank-a-list-of-proteins">
 <h2>Rank a list of proteins<a class="headerlink" href="#rank-a-list-of-proteins" title="Permalink to this heading">¶</a></h2>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span>(env) $ python run.py rankdisease -o all -pf &lt;path/to/protein/file&gt; UMLS_Disease_ID
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(env) $ python run.py rankdisease -o all -pf &lt;path/to/protein/file&gt; UMLS_Disease_ID
 
 # Example to rank breast cancer proteins against alzheimer&#39;s disease
 
 (env) $ python run.py rankdisease -o go -pf Data/TestData/BreastCancer/brca_proteins.txt C0001080
+
 </pre></div>
 </div>
+</section>
 <section id="description-of-inputs">
-<h3>Description of inputs<a class="headerlink" href="#description-of-inputs" title="Permalink to this heading">¶</a></h3>
+<h2>Description of inputs<a class="headerlink" href="#description-of-inputs" title="Permalink to this heading">¶</a></h2>
+<p><strong>-o or –ontology</strong>
+   Ontology upon which the ranking is based.</p>
 <p><strong>-o or –ontology</strong>   Ontology upon which the ranking is based.</p>
 <p><em>-pf or –protein_file</em>   A file containing UniProt protein IDs for proteins to be ranked.
 A single ID per line.</p>
 <p><em>-rf or –resultfile</em>   A file onto which the result of the ranking is written.\nIf a file path
 is not provided ther results will be stored in Results/ResultFile.txt</p>
-</section>
 </section>
 </section>
 
@@ -112,6 +118,7 @@ is not provided ther results will be stored in Results/ResultFile.txt</p>
 <li class="toctree-l2"><a class="reference internal" href="#run-docker-image">Run docker image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#run-prior">Run PrIOR</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#rank-a-list-of-proteins">Rank a list of proteins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#description-of-inputs">Description of inputs</a></li>
 </ul>
 </li>
 </ul>
