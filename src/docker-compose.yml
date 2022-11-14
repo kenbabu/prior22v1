@@ -3,6 +3,7 @@ services:
   app:
     build: .
     image: priorv22
+    user: ${APP_UID}
     volumes:
       - ${PWD}:/home/app_user/priordata
     stdin_open: true
