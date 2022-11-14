@@ -108,7 +108,10 @@ def prioritize_proteins_disease(ctx, proteinfile, disease, ontology, resultfile)
             ls_test_proteins.append(line.rstrip())
     ranks = rank_genes_disease(ls_test_proteins, disease, DICT_ONTOLOGY[ontology.lower()])
     with click.progressbar(ranks.items()) as data:
-        with open(resultfile, 'w') as handle:
+        # for key, val in data:
+        #     print(f'{key}\t{val}\n')
+
+        with open("Results/test_results.txt", 'w') as handle:
             for key, val in data:
                 handle.write(f'{key}\t{val}\n')
     

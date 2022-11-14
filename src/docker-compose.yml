@@ -4,6 +4,6 @@ services:
     build: .
     image: priorv22
     volumes:
-      - ./:/home/app_user/data
+      - ${PWD}:/home/app_user/priordata
     stdin_open: true
     tty: true
