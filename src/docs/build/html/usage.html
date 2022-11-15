@@ -43,14 +43,60 @@
 </pre></div>
 </div>
 </section>
-<section id="run-prior">
-<h2>Run PrIOR<a class="headerlink" href="#run-prior" title="Permalink to this heading">¶</a></h2>
-<section id="rank-a-list-of-proteins">
-<h3>Rank a list of proteins<a class="headerlink" href="#rank-a-list-of-proteins" title="Permalink to this heading">¶</a></h3>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(env)</span> <span class="gp">$ </span>python run.py rankdisease -o all -pf &lt;path/to/protein/file&gt; UMLS_Disease_ID
+<section id="build-docker-image">
+<h2>Build docker image<a class="headerlink" href="#build-docker-image" title="Permalink to this heading">¶</a></h2>
+<p>Build docker image of priorv22 and hand cursor back to the commandline</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker build -t priorv22 --rm -d
 </pre></div>
 </div>
 </section>
+<section id="run-docker-image">
+<h2>Run docker image<a class="headerlink" href="#run-docker-image" title="Permalink to this heading">¶</a></h2>
+<p>Run image of priorv22 in an interactive</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker run -t -i priorv22 --rm
+</pre></div>
+</div>
+</section>
+<section id="execute-a-prior-run-after-initalising-a-container">
+<h2>Execute a PrIOR run after initalising a container<a class="headerlink" href="#execute-a-prior-run-after-initalising-a-container" title="Permalink to this heading">¶</a></h2>
+<p>An example of prioritising a set of proteins for a disease</p>
+<!--  -->
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">app_user@874509d8a:~$ </span>python run.py rankdisease -o go -pf Data/TestData/BreastCancer/brca_proteins.txt C0001080
+</pre></div>
+</div>
+</section>
+<section id="run-prior">
+<h2>Run PrIOR<a class="headerlink" href="#run-prior" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker run -it --name priorv22_app --rm priorv22
+</pre></div>
+</div>
+<section id="get-umls-cui-id-for-a-disease">
+<h3>Get UMLS_CUI ID for a disease<a class="headerlink" href="#get-umls-cui-id-for-a-disease" title="Permalink to this heading">¶</a></h3>
+<ul class="simple">
+<li><p>Search  <a class="reference external" href="https://www.disgenet.org/search">DisGeNET</a> for mapping between disease names and corresponding UMLS IDs</p></li>
+</ul>
+</section>
+</section>
+<section id="rank-a-list-of-proteins">
+<h2>Rank a list of proteins<a class="headerlink" href="#rank-a-list-of-proteins" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>(env) $ python run.py rankdisease -o all -pf &lt;path/to/protein/file&gt; UMLS_Disease_ID
+
+# Example to rank breast cancer proteins against alzheimer&#39;s disease
+
+(env) $ python run.py rankdisease -o go -pf Data/TestData/BreastCancer/brca_proteins.txt C0001080
+
+</pre></div>
+</div>
+</section>
+<section id="description-of-inputs">
+<h2>Description of inputs<a class="headerlink" href="#description-of-inputs" title="Permalink to this heading">¶</a></h2>
+<p><strong>-o or –ontology</strong> \n
+   Ontology upon which the ranking is based.</p>
+<p><strong>-o or –ontology</strong>   Ontology upon which the ranking is based.</p>
+<p><em>-pf or –protein_file</em>   A file containing UniProt protein IDs for proteins to be ranked.
+A single ID per line.</p>
+<p><em>-rf or –resultfile</em>   A file onto which the result of the ranking is written.\nIf a file path
+is not provided ther results will be stored in Results/ResultFile.txt</p>
 </section>
 </section>
 
@@ -75,7 +121,12 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#build-docker-image">Build docker image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-docker-image">Run docker image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#execute-a-prior-run-after-initalising-a-container">Execute a PrIOR run after initalising a container</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#run-prior">Run PrIOR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rank-a-list-of-proteins">Rank a list of proteins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#description-of-inputs">Description of inputs</a></li>
 </ul>
 </li>
 </ul>

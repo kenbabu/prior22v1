@@ -9,13 +9,24 @@ To install PrIOR
 
 ```
 ## Build docker image
+Build docker image of priorv22 and hand cursor back to the commandline
 ```console
-$ docker build -t priorv22 --rm
+$ docker build -t priorv22 --rm -d
 
 ```
 ## Run docker image
+Run image of priorv22 in an interactive
 ```console
-$ docker run -t priorv22 --rm
+$ docker run -t -i priorv22 --rm
+
+```
+
+## Execute a PrIOR run after initalising a container
+An example of prioritising a set of proteins for a disease
+<!--  -->
+
+```console
+app_user@874509d8a:~$ python run.py rankdisease -o go -pf Data/TestData/BreastCancer/brca_proteins.txt C0001080
 
 ```
 
@@ -25,9 +36,8 @@ $ docker run -t priorv22 --rm
 $ docker run -it --name priorv22_app --rm priorv22
 
 ```
-Run docker in detatched mode i.e. you can exist the docker shell and still have docker running in the 
-background.
-    - docker run -dit --name priorv22_app --rm priorv22
+
+
 ### Get UMLS_CUI ID for a disease
 - Search  [DisGeNET](https://www.disgenet.org/search) for mapping between disease names and corresponding UMLS IDs
 

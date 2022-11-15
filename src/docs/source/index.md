@@ -9,6 +9,8 @@
 This library is still under development
 ```
 
+## PrIOR algorithm data pipeline
+
 ![No image](../../Images/PrIOR_algorithm_summary.png  "PrIOR Prioritization")
 
 ```{include} ../README.md
@@ -19,10 +21,12 @@ For further info, check out {doc}`usage`. Read installation instructions in {ref
 :maxdepth: 2
 
 usage
+developer
 ```
+<!-- ```{include} ../README.md
+``` -->
 
-
-# Indices and tables
+For additional software related notes, check out {doc}`developer`.
 
 - {ref}`genindex`
 - {ref}`modindex`
