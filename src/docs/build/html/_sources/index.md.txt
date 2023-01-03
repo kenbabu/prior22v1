@@ -6,11 +6,11 @@
 # Welcome to PrIOR's documentation!
 
 ```{warning}
-This library is still under development
+This library is still under development so the documentation will be constantly updated.
 ```
 
 ## PrIOR algorithm data pipeline
-
+*** 
 ![No image](../../Images/PrIOR_algorithm_summary.png  "PrIOR Prioritization")
 
 ```{include} ../README.md
