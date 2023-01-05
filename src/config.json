@@ -1,0 +1,8 @@
+{
+    "sinkdata" : "./Data/Dataframes/dfSink.pk",
+    "mamdata" : "/home/user/2022/Develop/Notebooks/dfSink.pk",
+    "prot2gene": "./Data/MappingDictionaries/dict_uniprot_gene.pk",
+    "gene2prot": "./Data/MappingDictionaries/dict_gene_uniprot.pk",
+    "rankresult": "./Results/ResultFile.txt"
+
+}
